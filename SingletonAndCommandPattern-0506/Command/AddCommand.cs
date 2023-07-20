@@ -12,7 +12,9 @@ namespace SingletonAndCommandPattern_0506.Command
 
         public override void Execute()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Ask for some properties");
+
+            base.Execute();
         }
     }
 }

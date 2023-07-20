@@ -17,10 +17,10 @@ namespace SingletonAndCommandPattern_0506
 
         private MenuService()
         {
-            _commands.Add(new ListCommand());
-            _commands.Add(new AddCommand());
-            _commands.Add(new RemoveCommand());
-            _commands.Add(new ExitCommand());
+            _commands.Add(MenuConstants.MenuActionCommands.List, new ListCommand());
+            _commands.Add(MenuConstants.MenuActionCommands.Add, new AddCommand());
+            _commands.Add(MenuConstants.MenuActionCommands.Remove,new RemoveCommand());
+            _commands.Add(MenuConstants.MenuActionCommands.Exit, new ExitCommand());
         }
 
         public static MenuService Instance => _instance;
@@ -30,8 +30,20 @@ namespace SingletonAndCommandPattern_0506
             command.Execute();
         }
 
-        private List<ICommand> _commands = new List<ICommand>();
+        public void Execute(string key)
+        {
+            var command = _commands[key];
+            command.Execute();
+        }
 
-        public IEnumerable<ICommand> Commands => _commands;
+        private Dictionary<string, BaseCommand> _commands = new Dictionary<string, BaseCommand>();
+
+        public IDictionary<string, BaseCommand> Commands => _commands;
+
+        public void RegisterFinishEvent(string key, CommandFinishedEventHandler action)
+        {
+            var command = _commands[key];
+            command.OnCommandFinished += action;
+        }
     }
 }

@@ -19,7 +19,8 @@ namespace SingletonAndCommandPattern_0506
         private MenuUiService()
         {
             _menuService = MenuService.Instance;
-
+            _menuService.RegisterFinishEvent(MenuConstants.MenuActionCommands.Exit, HandleExitCommand);
+            _menuService.RegisterFinishEvent(MenuConstants.MenuActionCommands.Add, HandleAddCommand);
         }
 
         public static MenuUiService Instance => _instance;
@@ -34,16 +35,14 @@ namespace SingletonAndCommandPattern_0506
 
                 var userInput = Console.ReadLine();
 
-                switch (userInput)
+                switch (userInput.ToUpper())
                 {
                     case MenuConstants.MenuActionCommands.Add:
-                        break;
                     case MenuConstants.MenuActionCommands.List:
-                        break;
                     case MenuConstants.MenuActionCommands.Remove:
-                        break;
                     case MenuConstants.MenuActionCommands.Exit:
-                        break;
+                        _menuService.Execute(userInput.ToUpper());
+                        return;
                     default:
                         Console.WriteLine("This option is not available");
                         continue;
@@ -58,8 +57,27 @@ namespace SingletonAndCommandPattern_0506
 
             foreach (var command in commands)
             {
-                Console.WriteLine(command.CommandName);
+                Console.WriteLine(command.Value.CommandName);
             }
+        }
+
+        private void HandleExitCommand(params object[] obj)
+        {
+            var returnValue = (bool)obj[0];
+
+            if(!returnValue)
+            {
+                PrintMenu();
+                return;
+            }
+
+            Console.WriteLine("Goodbye");
+        }
+
+        private void HandleAddCommand(params object[] obj)
+        {
+            Console.WriteLine("Record was added");
+            PrintMenu();
         }
     }
 }

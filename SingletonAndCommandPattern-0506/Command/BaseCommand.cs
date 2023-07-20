@@ -22,6 +22,7 @@ namespace SingletonAndCommandPattern_0506.Command
                 if(CommandArguments != null)
                 {
                     OnCommandFinished(CommandArguments);
+                    return;
                 }
 
                 OnCommandFinished();
