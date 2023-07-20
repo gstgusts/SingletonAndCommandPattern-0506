@@ -12,7 +12,7 @@ namespace SingletonAndCommandPattern_0506.Command
 
         public override void Execute()
         {
-            throw new NotImplementedException();
+            MenuUiService.Instance.PrintMenu();
         }
     }
 }
