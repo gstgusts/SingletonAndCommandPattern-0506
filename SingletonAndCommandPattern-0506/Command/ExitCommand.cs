@@ -6,13 +6,21 @@ using System.Threading.Tasks;
 
 namespace SingletonAndCommandPattern_0506.Command
 {
-    public class ExitCommand : ICommand
+    public class ExitCommand : BaseCommand
     {
-        public string CommandName => "Exit (E)";
+        public override string CommandName => "Exit (E)";
 
-        public void Execute()
+        public override void Execute()
         {
-            throw new NotImplementedException();
+            Console.Write("Do you realy want to quit? (Y/N):");
+
+            var userInput = Console.ReadLine();
+
+            var result = userInput?.ToLower() == "y";
+
+            CommandArguments = new object[] { result };
+
+            base.Execute();
         }
     }
 }

@@ -19,26 +19,46 @@ namespace SingletonAndCommandPattern_0506
         private MenuUiService()
         {
             _menuService = MenuService.Instance;
+
         }
 
         public static MenuUiService Instance => _instance;
 
         public void PrintMenu()
         {
+            do
+            {
+                PrintMenuItems();
+
+                Console.Write("Select a command: ");
+
+                var userInput = Console.ReadLine();
+
+                switch (userInput)
+                {
+                    case MenuConstants.MenuActionCommands.Add:
+                        break;
+                    case MenuConstants.MenuActionCommands.List:
+                        break;
+                    case MenuConstants.MenuActionCommands.Remove:
+                        break;
+                    case MenuConstants.MenuActionCommands.Exit:
+                        break;
+                    default:
+                        Console.WriteLine("This option is not available");
+                        continue;
+                }
+
+            } while (true);
+        }
+
+        private void PrintMenuItems()
+        {
             var commands = _menuService.Commands;
 
             foreach (var command in commands)
             {
                 Console.WriteLine(command.CommandName);
-            }
-
-            Console.Write("Select a command: ");
-
-            var userInput = Console.ReadLine();
-
-            switch (userInput)
-            {
-                
             }
         }
     }

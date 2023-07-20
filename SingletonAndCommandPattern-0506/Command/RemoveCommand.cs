@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace SingletonAndCommandPattern_0506.Command
 {
-    public class RemoveCommand : ICommand
+    public class RemoveCommand : BaseCommand
     {
-        public string CommandName => "Remove (R)";
+        public override string CommandName => "Remove (R)";
 
-        public void Execute()
+        public override void Execute()
         {
             throw new NotImplementedException();
         }

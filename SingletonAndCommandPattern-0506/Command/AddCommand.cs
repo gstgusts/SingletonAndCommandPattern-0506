@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace SingletonAndCommandPattern_0506.Command
 {
-    public class AddCommand : ICommand
+    public class AddCommand : BaseCommand
     {
-        public string CommandName => "Add (A)";
+        public override string CommandName => "Add (A)";
 
-        public void Execute()
+        public override void Execute()
         {
             throw new NotImplementedException();
         }
